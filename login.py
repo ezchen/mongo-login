@@ -2,7 +2,7 @@
 from pymongo import Connection
 
 
-def addUser(dbname="users", name="", password=""):
+def addUser(name, password, dbname="users"):
     """Takes string dbname, string name, string password
 
     adds user to the database and returns False is username already exists
@@ -25,7 +25,7 @@ def addUser(dbname="users", name="", password=""):
     return success
 
 
-def isInDatabase(dbname="users", name=""):
+def isInDatabase(name, dbname="users", dbCollectionName="people"):
     """takes string dbname, string name
     checks if user is already in the database and returns False if username
     already exists"""
@@ -33,7 +33,7 @@ def isInDatabase(dbname="users", name=""):
     db = conn[dbname]
 
     # returns collection of users
-    people = db.people
+    people = db[dbCollectionName]
 
     # there should be at most one instance of the user in the database
     success = (people.find({'name': name}).count() == 1)

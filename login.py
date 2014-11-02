@@ -2,14 +2,34 @@
 from pymongo import Connection
 
 
-def login(name, dbname="users", dbCollectionName="people"):
+"""Json Object Values"""
+nameKey = 'name'
+passwordKey = 'password'
+authenticatedKey = 'authenticated'
+
+
+def login(name, password, dbname="users", dbCollectionName="people"):
     """sets authenticated to True for a given user"""
-    updateUser(name, True, dbname, dbCollectionName)
+    success = False
+
+    conn = Connection()
+    db = conn[dbname]
+
+    people = db[dbCollectionName]
+
+    if (isInDatabase(name, dbname, dbCollectionName)):
+        # should only loop through once
+        for user in people.find({nameKey: name}):
+            if (user[passwordKey] == password):
+                success = updateUser(name, True, dbname, dbCollectionName)
+
+    return success
 
 
 def logout(name, dbname="users", dbCollectionName="people"):
     """sets authenticated to False for a given user"""
-    updateUser(name, False, dbname, dbCollectionName)
+    success = updateUser(name, False, dbname, dbCollectionName)
+    return success
 
 
 def updateUser(name, authenticated, dbname="users", dbCollectionName="people"):
@@ -20,9 +40,15 @@ Logs the user out if authenticated is False
 Returns True if successful or False if not successful"""
     success = True
 
+    conn = Connection()
+    db = conn[dbname]
+
+    people = db[dbCollectionName]
+
     if (isInDatabase(name, dbname, dbCollectionName)):
-        # update methods I don't know how to do...
-        pass
+        people.update({nameKey: name},
+                      {"$set": {authenticatedKey: authenticated}},
+                      False)
     else:
         success = False
 
@@ -41,9 +67,9 @@ automatically logs the user in after creating the account"""
 
     if (not isInDatabase(name, dbname, dbCollectionName)):
         # Jsonifies the User, authenticated True means the user is logged in
-        user = {'name': name,
-                'password': password,
-                'authenticated': True}
+        user = {nameKey: name,
+                passwordKey: password,
+                authenticatedKey: True}
         people = db[dbCollectionName]
         people.insert(user)
     else:
@@ -63,7 +89,7 @@ already exists"""
     people = db[dbCollectionName]
 
     # there should be at most one instance of the user in the database
-    success = (people.find({'name': name}).count() >= 1)
+    success = (people.find({nameKey: name}).count() >= 1)
 
     return success
 

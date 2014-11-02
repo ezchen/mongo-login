@@ -3,7 +3,12 @@ import login
 from pymongo import Connection
 
 
-class testIsInDatabase(unittest.TestCase):
+collectionName = "testdatabase"
+dbname = "testdb"
+
+
+class defaultTest(unittest.TestCase):
+    """Class for default setUp and tearDown methods for testing"""
     def setUp(self, names=["1", "2", "3"], dbname="testdb"):
         self.dbname = dbname
         self.names = names
@@ -12,7 +17,7 @@ class testIsInDatabase(unittest.TestCase):
         self._createTestDatabase(names)
 
     def _createTestDatabase(self, names):
-        """Set of names
+        """iter(names)
         creates collection testdatabase from the list of names"""
         for name in names:
             self.db.testdatabase.insert(self._jsonify(name, "password", False))
@@ -27,6 +32,11 @@ class testIsInDatabase(unittest.TestCase):
                 'authenticated': True}
         return user
 
+    def tearDown(self):
+        self.db.testdatabase.drop()
+
+
+class testIsInDatabase(defaultTest):
     def test_not_in_database(self):
         self.assertEquals(login.isInDatabase("notInDatabaseName",
                                              self.dbname,
@@ -38,18 +48,37 @@ class testIsInDatabase(unittest.TestCase):
                                                  self.dbname,
                                                  "testdatabase"), True)
 
-    def tearDown(self):
-        self.db.testdatabase.drop()
+
+class testAddUser(defaultTest):
+    def test_name_already_in_database(self):
+        """Should return false and not add it into the database"""
+        login.addUser("testingname", "password", self.dbname, "testdatabase")
+        self.assertEquals(login.addUser("testingname",
+                                        "password",
+                                        self.dbname,
+                                        "testdatabase"), False)
+
+    def test_add_name_success(self):
+        """Should return True and add user into the database"""
+        self.assertEquals(login.addUser("testingname4",
+                                        "password2",
+                                        self.dbname,
+                                        "testdatabase"), True)
+        self.assertEquals(login.isInDatabase("testingname4",
+                                             self.dbname,
+                                             "testdatabase",), True)
 
 
-class testAddUser(unittest.TestCase):
-    def setUp(self, names=["1", "2", "3"], dbname="testdb"):
-        self.dbname = dbname
+class testUpdateUser(defaultTest):
+    pass
 
 
 def main():
         suite = unittest.TestLoader().loadTestsFromTestCase(testIsInDatabase)
         unittest.TextTestRunner(verbosity=2).run(suite)
+        suite = unittest.TestLoader().loadTestsFromTestCase(testAddUser)
+        unittest.TextTestRunner(verbosity=2).run(suite)
+
 
 if __name__ == '__main__':
     main()

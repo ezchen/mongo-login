@@ -34,10 +34,10 @@ def logout(name, dbname="users", dbCollectionName="people"):
 
 def updateUser(name, authenticated, dbname="users", dbCollectionName="people"):
     """string name, Boolean authenticated, string dbname, string dbCollectioName
-Logs the user in if authenticated is True
-Logs the user out if authenticated is False
+    Logs the user in if authenticated is True
+    Logs the user out if authenticated is False
 
-Returns True if successful or False if not successful"""
+    Returns True if successful or False if not successful"""
     success = True
 
     conn = Connection()
@@ -57,9 +57,9 @@ Returns True if successful or False if not successful"""
 
 def addUser(name, password, dbname="users", dbCollectionName="people"):
     """string name, string password, string dbname, string dbCollectionName
-adds user to the database and returns False is username already exists
+    adds user to the database and returns False is username already exists
 
-automatically logs the user in after creating the account"""
+    automatically logs the user in after creating the account"""
     success = True
 
     conn = Connection()
@@ -80,8 +80,8 @@ automatically logs the user in after creating the account"""
 
 def isInDatabase(name, dbname="users", dbCollectionName="people"):
     """takes string name, string dbname, string dbCollectionName
-checks if user is already in the database and returns False if username
-already exists"""
+    checks if user is already in the database and returns False if username
+    already exists"""
     conn = Connection()
     db = conn[dbname]
 

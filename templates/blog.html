@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/blog.css')}}">
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+</head>
+
+<body>
+
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal">
+        <a href="/"><img src="static/images/bose-logo.png"></a>
+
+        <ul>
+            <li class="pure-menu-selected"><a href="#">Home</a></li>
+            <li><a href="#container">Post</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="wrapper">
+    {% set count = 1 %}
+    <div class="pure-g">
+    {% for key, value in posts.iteritems() %}
+
+        <div class="pure-u-1-2 pure-u-md-1-4">
+            {% include 'pin.html' %}
+        </div>
+
+        {% if (count is divisibleby(4)) %}
+            </div>
+            <div class="pure-g">
+        {% endif %}
+
+        {% set count = count + 1 %}
+
+    {% endfor %}
+    </div>
+</div>
+<div id="container">
+    <div class="lower-form-container">
+        <h2 class="is-center">What are you thinking about?</h2>
+        <form class="pure-form pure-form-stacked" method="post">
+            <fieldset>
+                <div class="pure-control-group">
+                    <label for="title"><h3>Title</h3></label>
+                    <input class="pure-input-1" id="title" name="title" type="text" placeholder="Title">
+                </div>
+                <div class="pure-control-group pure-control-group-large">
+                    <label for="post"><h3>Post</h3></label>
+                    <input class="pure-input-1" id="post" name="post" type="text" placeholder="Post">
+                </div>
+                    <input type="submit" value="Submit" class="pure-button pure-input-1 pure-button-primary">
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+</body>
+
+</html>

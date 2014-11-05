@@ -1,25 +1,35 @@
 <!DOCTYPE HTML>
 <html>
-<head>
+  <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-    <title>Login</title>
-
-</head>
-<body>
-<form method="post" >
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class=flashes>
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-    <input type="text" name="username" placeholder="username">
-    <input type="text" name="password" placeholder="password">
-    <input type="submit" value="login">
-</form>
-</body>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css')}}">
+  </head>
+  <body>
+    <div class="pure-g" id="header">
+      <div class="pure-u-3-4 l-box"><p>
+	  <font size="6" color="white"><a href="/">
+	      <img src="static/images/mongoleaf.png" style="width:50px;height:50px"></a>MongoLogin</p>
+	</font>
+      </div>
+      <div class="pure-u-1-4">
+	 <a class="button-xsmall pure-button" id="red"href="#">A Pure Button</a>
+      </div>
+    </div>
+    <div class="pure-g" id="mid">
+      <div class="pure-u-1-3 l-box"><p>MongoLogin is a Python module designed for account management using the MongoDB database. It is lightweight, allowing quick prototyping, yet functional enough to be used for a final project.
+<br><br>
+Why MongoLogin? We are:
+<ul>
+<li><b>Modular</b>-add any account variables, control accounts in multiple databases on the same site.
+<li><b>Open Source</b>-contributions to the module are always welcome. View the code <a href="/">here</a>.
+<li><b>Simple</b>-MongoLogin is extremely easy to use. A quick look through the documentation will have you setting up account systems in no time.
+</ul>
+ </p></div>
+      <div class="pure-u-1-3 l-box"><p>Thirds</p></div>
+      <div class="pure-u-1-3 l-box"><p>Thirds</p></div>
+    </div>
+    <div class="pure-g l-box">
+      <div class="pure-u-1-1" id="footer"><p></p></div>
+    </div>
 </html>

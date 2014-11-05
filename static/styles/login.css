@@ -1,0 +1,26 @@
+.l-box{
+    padding: 0em;
+}
+
+#header{
+    border-bottom: solid white 3px;
+    background-color: #402817;
+}
+
+#reg{
+    color: #5aac41;
+}
+
+.button-small{
+    color: #5aac41;
+}
+
+#mid{
+    height: 400px;
+    background-color: #f3f4eb;
+}
+
+#footer{
+    border-bottom: solid white 3px;
+    background-color: #402817;
+}

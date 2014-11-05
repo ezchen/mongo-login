@@ -4,28 +4,60 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css')}}">
+    <script>
+      function toggle_visibility(id, id2) {
+      var e = document.getElementById(id);
+      var b = document.getElementById(id2);
+      if(e.style.display == 'block'){
+           e.style.display = 'none';
+           b.style.display = 'block';
+           b.style.background = '#f3f4eb';
+          }
+      else{
+           e.style.display = 'block';
+           e.style.background = '#f3f4eb';
+           b.style.display = 'none';
+          }
+      }
+    </script>
   </head>
   <body>
     <div class="pure-g" id="header">
-      <div class="pure-u-3-4 l-box"><p>
+      <div class="pure-u-22-24 l-box"><p>
 	  <font size="6" color="white"><a href="/">
 	      <img src="static/images/mongoleaf.png" style="width:50px;height:50px"></a>MongoLogin</p>
 	</font>
       </div>
-      <div class="pure-u-1-4">
-	 <a class="button-xsmall pure-button" id="red"href="#">A Pure Button</a>
+      <div class="pure-u-2-24"><p><br><button class="button-small pure-button" onclick="toggle_visibility('mid', 'regdiv')">Register</button></p>
       </div>
+    </div>
+        <div class="pure-g" id="regdiv">
+      <div class="pure-u-1-3 l-box"><p></p></div>
+      <div class="pure-u-1-3 l-box">
+	<p>
+	  <form class="pure-form" method="POST"><center>
+	      <fieldset>
+		<input type="text" size="40" name="username" placeholder="username"><br><br>
+		<input type="password" size="40" placeholder="password">
+		<br><br><center>
+		  <input type="submit" class="button-small pure-button" name="submit" value="Register"></center>
+	    </fieldset></center>
+	  </form>
+	</p>
+      </div>
+      <div class="pure-u-1-3 l-box"><p></p></div>
     </div>
     <div class="pure-g" id="mid">
       <div class="pure-u-1-3 l-box"><p>MongoLogin is a Python module designed for account management using the MongoDB database. It is lightweight, allowing quick prototyping, yet functional enough to be used for a final project.
-<br><br>
-Why MongoLogin? We are:
-<ul>
-<li><b>Modular</b>-add any account variables, control accounts in multiple databases on the same site.
-<li><b>Open Source</b>-contributions to the module are always welcome. View the code <a href="/">here</a>.
-<li><b>Simple</b>-MongoLogin is extremely easy to use. A quick look through the documentation will have you setting up account systems in no time.
-</ul>
- </p></div>
+	  <br><br>
+	  Why MongoLogin? We are:
+	  <ul>
+	    <li><b>Modular</b>-add any account variables, control accounts in multiple databases on the same site.
+	    <li><b>Open Source</b>-contributions to the module are always welcome. View the code <a href="/">here</a>.
+	    <li><b>Simple</b>-MongoLogin is extremely easy to use. A quick look through the documentation will have you setting up account systems in no time.
+	  </ul>
+	</p>
+      </div>
       <div class="pure-u-1-3 l-box"><p>Thirds</p></div>
       <div class="pure-u-1-3 l-box"><p>Thirds</p></div>
     </div>

@@ -7,17 +7,19 @@
     background-color: #402817;
 }
 
-#reg{
-    color: #5aac41;
-}
-
-.button-small{
-    color: #5aac41;
-}
-
 #mid{
     height: 400px;
     background-color: #f3f4eb;
+}
+
+#regdiv{
+    display: none;
+    background-color: #f3f4eb;
+}
+
+.button-small{
+    color: white;
+    background: #5aac41;
 }
 
 #footer{

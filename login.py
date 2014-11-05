@@ -34,6 +34,18 @@ def logout(name, dbname="users", dbCollectionName="people"):
     success = updateUser(name, False, dbname, dbCollectionName)
     return success
 
+def authenticated(name, dbname="users", dbCollectionName="people"):
+    """Checks if user is authenticated"""
+    conn = Connection()
+    db = conn[dbname]
+    people = db[dbCollectionName]
+
+    if (isInDatabase(name, dbname, dbCollectionName)):
+        # should only loop through once
+        for user in people.find({nameKey: name}):
+            if (user[authenticatedKey] == True):
+                return True
+            return False
 
 def updateUser(name, authenticated, dbname="users", dbCollectionName="people"):
     """string name, Boolean authenticated, string dbname, string dbCollectioName

@@ -9,7 +9,10 @@ authenticatedKey = 'authenticated'
 
 
 def login(name, password, dbname="users", dbCollectionName="people"):
-    """sets authenticated to True for a given user"""
+    """string name, string password, string dbname="users",
+    string collection="people"
+
+    sets authenticated to True for a given user"""
     success = False
 
     conn = Connection()
@@ -89,7 +92,7 @@ def isInDatabase(name, dbname="users", dbCollectionName="people"):
     people = db[dbCollectionName]
 
     # there should be at most one instance of the user in the database
-    success = (people.find({nameKey: name}).count() >= 1)
+    success = (people.find({nameKey: name}).count() == 1)
 
     return success
 
